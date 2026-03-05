@@ -34,11 +34,21 @@ export const useAuthStore = create<AuthState>()(
             role: found.role as UserRole,
           };
           set({ user, isAuthenticated: true });
+          // Set cookie for middleware
+          if (typeof document !== "undefined") {
+            document.cookie = `pos-auth-token=true; path=/; max-age=86400; samesite=lax`;
+          }
           return true;
         }
         return false;
       },
-      logout: () => set({ user: null, isAuthenticated: false }),
+      logout: () => {
+        set({ user: null, isAuthenticated: false });
+        // Remove cookie for middleware
+        if (typeof document !== "undefined") {
+          document.cookie = `pos-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        }
+      },
     }),
     { name: "pos-auth" }
   )

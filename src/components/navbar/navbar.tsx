@@ -1,15 +1,25 @@
 "use client";
 
+import { useMemo } from "react";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { LayoutDashboard, LogIn, LogOut, User } from "lucide-react";
+import {
+  LayoutDashboard,
+  LogIn,
+  LogOut,
+  ShoppingCart,
+  User,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
 
+import { Badge } from "../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +39,9 @@ export function Navbar() {
     useShallow((state) => [state.user, state.logout, state.isAuthenticated])
   );
   const router = useRouter();
+  const items = useCartStore(useShallow((state) => state.items));
+
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleLogout = () => {
     logout();
@@ -51,33 +64,51 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {isAuthenticated && user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="cursor-pointer gap-2">
-                  <User className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-fit">
-                <DropdownMenuLabel>
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm leading-none font-medium">
-                      {user.name}
-                    </p>
-                    <p className="text-muted-foreground text-xs leading-none">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="text-muted-foreground hover:text-foreground cursor-pointer gap-2"
-                >
-                  <LogOut className="hover:text-foreground h-4 w-4" />
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                className="relative"
+                onClick={() => router.push("/cart")}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {totalItems > 0 && (
+                  <Badge
+                    variant="default"
+                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 text-xs"
+                  >
+                    {totalItems}
+                  </Badge>
+                )}
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="cursor-pointer gap-2">
+                    <User className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-fit">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm leading-none font-medium">
+                        {user.name}
+                      </p>
+                      <p className="text-muted-foreground text-xs leading-none">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-muted-foreground hover:text-foreground cursor-pointer gap-2"
+                  >
+                    <LogOut className="hover:text-foreground h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           ) : (
             // <Button
             //   variant="ghost"
