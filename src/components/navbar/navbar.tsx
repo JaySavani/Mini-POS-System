@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { Code2, LogIn } from "lucide-react";
+import { LayoutDashboard, LogIn } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
-            <Code2 className="text-primary-foreground h-4.5 w-4.5" />
+            <LayoutDashboard className="text-primary-foreground h-4.5 w-4.5" />
           </div>
           <span className="text-foreground text-lg font-bold tracking-tight">
             POS
