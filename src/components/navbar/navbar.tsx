@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { LayoutDashboard, LogIn } from "lucide-react";
+import { LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/stores/auth";
 
 import { ThemeToggle } from "./theme-toggle";
 
@@ -14,7 +17,16 @@ import { ThemeToggle } from "./theme-toggle";
 // ];
 
 export function Navbar() {
-  //   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, logout, isAuthenticated] = useAuthStore(
+    useShallow((state) => [state.user, state.logout, state.isAuthenticated])
+  );
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    router.push("/sign-in");
+  };
 
   return (
     <header className="bg-card/80 sticky top-0 z-50 border-b backdrop-blur-md">
@@ -30,18 +42,17 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          {
-            //   (
-            //     <Button
-            //       variant="ghost"
-            //       size="sm"
-            //       onClick={() => signOut()}
-            //       className="text-muted-foreground hover:text-foreground gap-2"
-            //     >
-            //       <LogOut className="h-4 w-4" />
-            //       Logout
-            //     </Button>
-            //   ) :
+          {isAuthenticated && user ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="text-muted-foreground hover:text-foreground gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </Button>
+          ) : (
             <>
               <Link href="/sign-in">
                 <Button
@@ -54,7 +65,7 @@ export function Navbar() {
                 </Button>
               </Link>
             </>
-          }
+          )}
         </div>
       </div>
     </header>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
@@ -14,17 +14,31 @@ import {
   LayoutDashboard,
   Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { type SignInFormValues, signInSchema } from "@/lib/schemas/auth";
+import { type SignInFormValues, signInSchema } from "@/schemas/auth";
+import { useAuthStore } from "@/stores/auth";
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  const [login, isAuthenticated] = useAuthStore(
+    useShallow((state) => [state.login, state.isAuthenticated])
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   const {
     register,
@@ -39,10 +53,21 @@ export default function SignInPage() {
   });
 
   async function onSubmit(data: SignInFormValues) {
-    setIsLoading(true);
-    console.log(data);
-    router.push("/");
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const success = login(data.email, data.password);
+      if (success) {
+        toast.success("Signed in successfully");
+        // router.push("/");
+      } else {
+        toast.error("Invalid email or password");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
