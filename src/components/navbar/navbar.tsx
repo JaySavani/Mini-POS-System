@@ -3,13 +3,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import { LayoutDashboard, LogIn, LogOut, User } from "lucide-react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/auth";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { ThemeToggle } from "./theme-toggle";
 
 // const navItems = [
@@ -43,16 +51,43 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {isAuthenticated && user ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              className="text-muted-foreground hover:text-foreground gap-2"
-            >
-              <LogOut className="h-4 w-4" />
-              Logout
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="cursor-pointer gap-2">
+                  <User className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-fit">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm leading-none font-medium">
+                      {user.name}
+                    </p>
+                    <p className="text-muted-foreground text-xs leading-none">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="text-muted-foreground hover:text-foreground cursor-pointer gap-2"
+                >
+                  <LogOut className="hover:text-foreground h-4 w-4" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
+            // <Button
+            //   variant="ghost"
+            //   size="sm"
+            //   onClick={handleLogout}
+            //   className="text-muted-foreground hover:text-foreground gap-2"
+            // >
+            //   <LogOut className="h-4 w-4" />
+            //   Logout
+            // </Button>
             <>
               <Link href="/sign-in">
                 <Button
