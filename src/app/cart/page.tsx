@@ -59,7 +59,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 py-10">
+    <div className="mx-auto max-w-3xl space-y-6 px-4 py-10">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-heading text-2xl font-bold">Shopping Cart</h1>
@@ -75,55 +75,63 @@ export default function CartPage() {
       <div className="space-y-3">
         {items.map(({ product, quantity }) => (
           <Card key={product.id} className="animate-fade-in">
-            <CardContent className="flex items-center gap-4 p-4">
-              <Image
-                src={product.image}
-                alt={product.name}
-                className="h-16 w-16 rounded-lg object-cover"
-                width={64}
-                height={64}
-              />
-              <div className="min-w-0 flex-1">
-                <h3 className="font-heading truncate text-sm font-semibold">
-                  {product.name}
-                </h3>
-                <p className="text-muted-foreground text-xs">
-                  ${product.price.toFixed(2)} each · {product.stock} in stock
-                </p>
+            <CardContent className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center">
+              <div className="flex min-w-0 flex-1 items-center gap-4">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  className="h-16 w-16 shrink-0 rounded-lg object-cover"
+                  width={64}
+                  height={64}
+                />
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-heading truncate text-sm font-semibold">
+                    {product.name}
+                  </h3>
+                  <p className="text-muted-foreground text-xs">
+                    ${product.price.toFixed(2)} each
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="h-8 w-8"
-                  onClick={() => updateQuantity(product.id, quantity - 1)}
-                >
-                  <Minus className="h-3 w-3" />
-                </Button>
-                <span className="w-8 text-center text-sm font-medium">
-                  {quantity}
-                </span>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="h-8 w-8"
-                  disabled={quantity >= product.stock}
-                  onClick={() => updateQuantity(product.id, quantity + 1)}
-                >
-                  <Plus className="h-3 w-3" />
-                </Button>
+
+              <div className="flex items-center justify-between gap-4 sm:justify-end">
+                <div className="bg-muted/50 flex items-center gap-2 rounded-lg p-1">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="hover:bg-background h-8 w-8"
+                    onClick={() => updateQuantity(product.id, quantity - 1)}
+                  >
+                    <Minus className="h-3 w-3" />
+                  </Button>
+                  <span className="w-8 text-center text-sm font-medium">
+                    {quantity}
+                  </span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="hover:bg-background h-8 w-8"
+                    disabled={quantity >= product.stock}
+                    onClick={() => updateQuantity(product.id, quantity + 1)}
+                  >
+                    <Plus className="h-3 w-3" />
+                  </Button>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="font-heading w-20 text-right font-bold whitespace-nowrap">
+                    ${(product.price * quantity).toFixed(2)}
+                  </span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="text-destructive hover:bg-destructive/10"
+                    onClick={() => removeFromCart(product.id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <span className="font-heading w-20 text-right font-bold">
-                ${(product.price * quantity).toFixed(2)}
-              </span>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="text-destructive hover:bg-destructive/20"
-                onClick={() => removeFromCart(product.id)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
             </CardContent>
           </Card>
         ))}

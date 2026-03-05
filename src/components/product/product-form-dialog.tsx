@@ -76,9 +76,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
   const onSubmit = (values: ProductFormValues) => {
     const data = {
       ...values,
-      image:
-        values.image ||
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
+      image: values.image,
     };
 
     if (product) {
@@ -210,7 +208,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image URL (Optional)</FormLabel>
+                  <FormLabel>Image URL</FormLabel>
                   <FormControl>
                     <Input placeholder="https://..." {...field} />
                   </FormControl>

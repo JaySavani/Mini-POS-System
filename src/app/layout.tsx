@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { Footer } from "@/components/footer/footer";
+import { Footer } from "@/components/Footer/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -42,7 +42,7 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
-            <Toaster />
+            <Toaster richColors position="top-center" duration={2000} />
             <Footer />
           </div>
         </ThemeProvider>

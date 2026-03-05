@@ -58,7 +58,7 @@ export default function SignInPage() {
       const success = login(data.email, data.password);
       if (success) {
         toast.success("Signed in successfully");
-        // router.push("/");
+        router.push("/");
       } else {
         toast.error("Invalid email or password");
       }
