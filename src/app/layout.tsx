@@ -42,7 +42,7 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
-            <Toaster />
+            <Toaster richColors position="top-center" duration={2000} />
             <Footer />
           </div>
         </ThemeProvider>

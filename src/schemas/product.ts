@@ -9,7 +9,10 @@ export const productSchema = z.object({
     .number()
     .int("Stock must be an integer")
     .min(0, "Stock cannot be negative"),
-  image: z.string().url("Please enter a valid URL").or(z.literal("")),
+  image: z
+    .string()
+    .min(1, "Image URL is required")
+    .url("Please enter a valid URL"),
 });
 
 export type ProductFormValues = z.infer<typeof productSchema>;
