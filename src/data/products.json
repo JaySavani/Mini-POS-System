@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Earbuds Pro",
+    "description": "Premium noise-cancelling wireless earbuds with 30hr battery life",
+    "price": 79.99,
+    "stock": 45,
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?w=400&h=400&fit=crop",
+    "category": "Audio"
+  },
+  {
+    "id": "2",
+    "name": "Mechanical Keyboard",
+    "description": "RGB backlit mechanical keyboard with Cherry MX switches",
+    "price": 129.99,
+    "stock": 23,
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop",
+    "category": "Peripherals"
+  },
+  {
+    "id": "3",
+    "name": "USB-C Hub 7-in-1",
+    "description": "Multi-port adapter with HDMI, USB 3.0, SD card reader",
+    "price": 49.99,
+    "stock": 67,
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3296236c05?w=400&h=400&fit=crop",
+    "category": "Accessories"
+  },
+  {
+    "id": "4",
+    "name": "Portable Monitor 15.6\"",
+    "description": "Full HD IPS portable monitor with USB-C connectivity",
+    "price": 219.99,
+    "stock": 12,
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=400&fit=crop",
+    "category": "Displays"
+  },
+  {
+    "id": "5",
+    "name": "Webcam 4K Ultra",
+    "description": "4K webcam with auto-focus and built-in ring light",
+    "price": 89.99,
+    "stock": 34,
+    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400&h=400&fit=crop",
+    "category": "Peripherals"
+  },
+  {
+    "id": "6",
+    "name": "Desk Lamp LED",
+    "description": "Smart LED desk lamp with adjustable color temperature",
+    "price": 44.99,
+    "stock": 0,
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=400&h=400&fit=crop",
+    "category": "Accessories"
+  },
+  {
+    "id": "7",
+    "name": "Bluetooth Speaker",
+    "description": "Waterproof portable speaker with 360° sound",
+    "price": 59.99,
+    "stock": 56,
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop",
+    "category": "Audio"
+  },
+  {
+    "id": "8",
+    "name": "Laptop Stand Adjustable",
+    "description": "Ergonomic aluminum laptop stand with adjustable height",
+    "price": 39.99,
+    "stock": 78,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
+    "category": "Accessories"
+  },
+  {
+    "id": "9",
+    "name": "Gaming Mouse",
+    "description": "High-precision gaming mouse with 16000 DPI sensor",
+    "price": 69.99,
+    "stock": 3,
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=400&fit=crop",
+    "category": "Peripherals"
+  },
+  {
+    "id": "10",
+    "name": "Wireless Charger Pad",
+    "description": "Fast wireless charging pad compatible with all Qi devices",
+    "price": 29.99,
+    "stock": 92,
+    "image": "https://images.unsplash.com/photo-1586816879360-004f5b0c51e5?w=400&h=400&fit=crop",
+    "category": "Accessories"
+  }
+]
