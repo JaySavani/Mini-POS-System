@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 import usersData from "@/data/users.json";
 import type { User, UserRole } from "@/types/user";
 
+import { useCartStore } from "./cart";
+
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
@@ -44,6 +46,8 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         set({ user: null, isAuthenticated: false });
+        // Clear cart on logout
+        useCartStore.getState().clearCart();
         // Remove cookie for middleware
         if (typeof document !== "undefined") {
           document.cookie = `pos-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
